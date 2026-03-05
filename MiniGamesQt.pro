@@ -1,7 +1,9 @@
 QT += quick
 
 SOURCES += \
+        appfunctions.cpp \
         game.cpp \
+        launcher.cpp \
         main.cpp
 
 resources.files = main.qml 
@@ -26,7 +28,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     GuessTheNumber.qml \
+    MainMenu.qml \
     RockPaperScessors.qml
 
 HEADERS += \
-    game.h
+    appfunctions.h \
+    game.h \
+    launcher.h
