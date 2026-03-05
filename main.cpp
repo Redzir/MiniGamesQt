@@ -1,22 +1,18 @@
-#include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
 #include <QLocale>
 #include <QTranslator>
 
-int main(int argc, char *argv[])
-{
-    QGuiApplication app(argc, argv);
+#include "launcher.h"
 
-    QTranslator translator;
-    const QStringList uiLanguages = QLocale::system().uiLanguages();
-    for (const QString &locale : uiLanguages) {
-        const QString baseName = "MiniGamesQt_" + QLocale(locale).name();
-        if (translator.load(":/i18n/" + baseName)) {
-            app.installTranslator(&translator);
-            break;
-        }
-    }
+int main(int argc, char *argv[]){
+    using namespace core;
+
+    QGuiApplication app = QGuiApplication(argc,argv);
+
+    Launcher& launcher = Launcher::instance();
+    launcher.init();
+
 
     QQmlApplicationEngine engine;
     const QUrl url(u"qrc:/MiniGamesQt/main.qml"_qs);
