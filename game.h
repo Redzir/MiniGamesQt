@@ -6,11 +6,10 @@
 
 namespace core {
 
-    class Game
-    {
+    class Game {
         QString _nameId;
     public:
-        explicit Game(QString nameId);
+        explicit Game(const QString& nameId);
         virtual ~Game() = default;
 
         QString nameId() {
@@ -22,7 +21,7 @@ namespace core {
         virtual void handleInput() = 0;
     };
 
-    QMap<QString,QString> loadGameScoresTable(QString gameNameId);
+    QMap<QString,QString> loadGameScoresTable(const QString& gameNameId);
 }
 
 #endif // GAME_H

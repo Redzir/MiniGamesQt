@@ -2,7 +2,6 @@
 
 
 
-core::Game::Game(QString nameId):_nameId(nameId)
-{
-
-}
+core::Game::Game(const QString& nameId)
+    :_nameId(nameId)
+{}
