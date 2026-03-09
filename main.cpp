@@ -11,10 +11,12 @@ int main(int argc, char *argv[]){
     QGuiApplication app = QGuiApplication(argc,argv);
 
     Launcher& launcher = Launcher::instance();
-    launcher.init();
-
 
     QQmlApplicationEngine engine;
+    launcher.setParent(&engine);
+
+    qmlRegisterSingletonInstance("com.launcher",1,0,"Launcher",&launcher);
+
     const QUrl url(u"qrc:/MiniGamesQt/main.qml"_qs);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

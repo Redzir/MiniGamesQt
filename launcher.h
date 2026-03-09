@@ -3,29 +3,47 @@
 
 #include <QString>
 #include <QGuiApplication>
-#include <memory>
+#include <QStringList>
+#include <QQmlEngine>
 
 namespace core
 {
-    class Launcher
+    class Launcher : public QObject
     {
-        QString _user;
+        Q_OBJECT
+        QML_SINGLETON
+        QML_ELEMENT
+
+        QString _currentUser = "";
+        QVector<QString> _allUsers;
 
         Launcher();
     public:
         static Launcher& instance();
-        void init();
-        void setUser(const QString& user)
+        ~Launcher();
+        Q_INVOKABLE void setCurrentUser(const QString& currentUser)
         {
-            _user = user;
+            _currentUser = currentUser;
         }
-        QString getUser() const
+        Q_INVOKABLE QString getCurrentUser() const
         {
-            return _user;
+            return _currentUser;
+        }
+        //It creates a copy because QML doesn't work with references
+        Q_INVOKABLE QStringList getAllUsers() const {
+            return _allUsers;
+        }
+        Q_INVOKABLE void addNewUser(QString userName);
+
+        Q_INVOKABLE void deleteUser(QString userName);
+
+        Q_INVOKABLE bool isUserSelected() {
+            return !_currentUser.trimmed().isEmpty();
+        }
+        Q_INVOKABLE bool hasUser(QString userName) {
+            return _allUsers.contains(userName);
         }
     };
-
-
 }
 
 
